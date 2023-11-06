@@ -249,6 +249,48 @@ spectoda.on("connected", async () => {
       }
     }
   }
+
+  // ** PWS400K ** //
+  try {
+
+    const moonrakerConfPath = "/home/pi/printer_data/config/moonraker.conf";
+    const moonrakerConfData = fs.readFileSync(moonrakerConfPath, 'utf8');
+
+    const firstLine = moonrakerConfData.split('\n')[0];
+    
+    let printerSerialNumber = undefined;
+
+    if (firstLine.startsWith('#')) {
+      const potentialSerial = firstLine.slice(1);
+      const regex = /^[A-Z]{2}\d{5}$/;
+      if (regex.test(potentialSerial)) {
+        printerSerialNumber = potentialSerial;
+      } else {
+        logging.error('Serial number format is incorrect');
+      }
+    } else {
+      logging.error('Unexpected format in the first line');
+    }
+
+    // Use the printerSerialNumber variable here
+    if (printerSerialNumber) {
+      logging.info(`>> Printer serial number is: ${printerSerialNumber}`);
+
+      const controllerName = await spectoda.readControllerName();
+
+      if (controllerName !== printerSerialNumber) {
+        logging.info(">> Updating Controller '" + controllerName + "' to '" + printerSerialNumber + "'");
+        await spectoda.writeControllerName(printerSerialNumber);
+      }
+
+    } else {
+      logging.error('Printer serial number could not be determined');
+    }
+
+  } catch (error) {
+    logging.error("PWS400K Error:", error);
+  }
+  // ** PWS400K ** //
 });
 
 spectoda.on("ota_progress", (percentages: number) => {
