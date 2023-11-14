@@ -19,8 +19,9 @@ git clone https://github.com/Spectoda/spectoda-bridge-pws400k
 cd spectoda-bridge-pws400k
 git submodule update --init --recursive
 ```
-3. Update printer_data/moonraker.asvc to include `spectoda-bridge-pws400k`
-4. Update printer_data/config/moonraker.conf to include 
+3. Install npm dependencies in spectoda-bridge-pws400k `npm i`
+4. Update printer_data/moonraker.asvc to include `spectoda-bridge-pws400k`
+5. Update printer_data/config/moonraker.conf to include 
 ```
 [notifier spectoda]
 url: json://localhost:8888/notifier
@@ -36,7 +37,7 @@ enable_node_updates: True
 managed_services:
     spectoda-bridge-pws400k
 ```
-5. Setup service file `/etc/systemd/system/spectoda-bridge-pws400k.service` like so:
+6. Setup service file `/etc/systemd/system/spectoda-bridge-pws400k.service` like so:
 ```
 [Unit]
 Description=Bridge for connecting to Spectoda Ecosystem
@@ -53,11 +54,11 @@ RestartSec=5s
 [Install]
 WantedBy=default.target
 ```
-6. Start the spectoda-bridge-pws400k.service service using `sudo systemctl start spectoda-bridge-pws400k`
+7. Start the spectoda-bridge-pws400k.service service using `sudo systemctl start spectoda-bridge-pws400k`
 
 ### Connect Controller and try it out
 
-7. Connect Spectoda Controller with FW version 0.10 and try it out. The Controller should have enabled `"serial"` on `"tx": 27` and `"rx": 26` in its config (by default) like so:
+8. Connect Spectoda Controller with FW version 0.10 and try it out. The Controller should have enabled `"serial"` on `"tx": 27` and `"rx": 26` in its config (by default) like so:
 ```
 {
   "controller": {
@@ -76,20 +77,20 @@ WantedBy=default.target
   },
   "ports": [
     {
-      "label": "A",
+      "tag": "A",
       "type": "WS2812B",
       "pin": 16,
       "size": 25
     },
     {
-      "label": "B",
+      "tag": "B",
       "type": "WS2812B",
       "pin": 5,
       "size": 22,
       "reversed": false
     },
     {
-      "label": "C",
+      "tag": "C",
       "type": "WS2812B",
       "pin": 17,
       "size": 43
@@ -104,6 +105,6 @@ WantedBy=default.target
   ]
 }
 ```
-8. Look for possible issues with `sudo journalctl -u spectoda-bridge-pws400k.service -f`
+9. Look for possible issues with `sudo journalctl -u spectoda-bridge-pws400k.service -f`
 
 The service must be run under root, or it will not have rights to use the UART0
