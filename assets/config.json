@@ -16,8 +16,7 @@
                 "path": "tngl.txt"
             },
             "fw": {
-                "force": true,
-                "path": "PWS_0.10.0_20231114.enc"
+                "path": "PWS_0.10.0_20231123.enc"
             }
         }
     }
