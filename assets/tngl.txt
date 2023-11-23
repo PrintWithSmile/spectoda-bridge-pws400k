@@ -1,15 +1,12 @@
-
-
-
-defDevice($p400k, 0x00, 0xff, 25px, $PORTA, 0xff, 19px, $PORTB, 0xff, 43px, $PORTC, 0xff, {
-  const button = 0xA2($toggl); 
+defDevice($p400k, 0x00, 0xff, 25px, $PORTA, 0xff, 20px, $PORTB, 0xff, 43px, $PORTC, 0xff, {
+  const button = Provider($toggl);
   const boolean = Boolean();
   const negate = Negate();
-  const event = EventRelay($light, 0xff);
+  const event = EventRelay($light, 255);
 
-  button->[0x00]boolean;
-  boolean->[0x00]negate;
-  negate->[0x00]event;
+  button->[0]boolean;
+  boolean->[0]negate;
+  negate->[0]event;
 });
 
 defSegment($front, 0x00, { segment($PORTB, true); });
