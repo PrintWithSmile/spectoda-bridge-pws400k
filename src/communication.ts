@@ -6,7 +6,7 @@ import { hexStringToArray, hexStringToUint8Array, sleep } from "./lib/spectoda-j
 
 const spectoda = new Spectoda("nodeserial", true);
 
-spectoda.setDebugLevel(4);
+spectoda.setDebugLevel(3);
 
 // spectoda.assignOwnerSignature("a06cd5c4d5741b61fee69422f2590926");
 // spectoda.assignOwnerKey("bfd39c89ccc2869f240508e9a0609420");
