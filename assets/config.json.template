@@ -13,6 +13,7 @@
         },
         "synchronize": {
             "tngl": {
+                "force": true,
                 "bytecode": "026affed0271781617abced681",
                 "path": "tngl.txt"
             },
@@ -20,7 +21,8 @@
                 "json": "{\"DELETE_KEYS\":[\"tohle\", \"tamto\"]}"
             },
             "fw": {
-                "path": "0.10.0_20231010.enc",
+                "force": true,
+                "path": "0.10.0_20231010.enc"
                 "url": "https://server.com/UNIVERSAL_0.10.0_20231122.enc"
             }
         }
