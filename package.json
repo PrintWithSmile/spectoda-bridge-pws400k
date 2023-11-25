@@ -8,7 +8,7 @@
     "start": "./pws-init-script.sh",
     "start:old": "ts-node --transpile-only .",
     "dummy": "DEBUG=* DUMMY=1 tsx .",
-    "dev": "DEBUG=* tsx ."
+    "dev": "tsx ."
   },
   "keywords": [],
   "author": "",
