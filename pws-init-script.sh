@@ -9,6 +9,7 @@ SUBMODULES=("src/lib/node-ble" "src/lib/spectoda-js")
 # Navigate to the root directory
 cd $REPO_DIR
 
+echo "running git submodule update..."
 timeout 60s git submodule update --init --recursive || true
 
 # Try to run tsx
