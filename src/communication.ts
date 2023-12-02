@@ -1,3 +1,5 @@
+const { exec } = require('child_process'); // Add this line at the beginning of your file
+
 // import esPkg from 'essentia.js';
 import { Spectoda } from "./lib/spectoda-js/Spectoda";
 import { logging } from "./lib/spectoda-js/logging";
@@ -315,6 +317,19 @@ spectoda.on("connected", async () => {
     } else {
       logging.error('Printer serial number could not be determined');
     }
+
+    logging.info("Restarting moonraker-spectoda-connector.service...");
+    // Add the following lines at the end of the main function
+    exec('systemctl restart moonraker-spectoda-connector.service', (error: any, stdout: any, stderr: any) => {
+      if (error) {
+        logging.error(`Error: ${error.message}`);
+        return;
+      }
+      if (stderr) {
+        logging.error(`Stderr: ${stderr}`);
+        return;
+      }
+    });
 
   } catch (error) {
     logging.error("PWS400K Error:", error);
