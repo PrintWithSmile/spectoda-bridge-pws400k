@@ -1,4 +1,4 @@
-defDevice($p400k, 0x00, 0xff, 26px, $PORTA, 0xff, 22px, $PORTB, 0xff, 44px, $PORTC, 0xff, {
+defDevice($p400k, 0x00, 0xff, 28px, $PORTA, 0xff, 26px, $PORTB, 0xff, 46px, $PORTC, 0xff, {
   // Bluetooth
   // Serial
   const button = Provider($toggl);
