@@ -77,6 +77,7 @@ defSegment($porta, 0x00, { slice($PORTC, 0px, 43px, 1px); slice($PORTA, 23px, 24
   catchEvent($kread).emitAs($stand);
   catchEvent($kdisc).emitAs($SHUT).emitAs($_DONE);
   catchEvent($kshut).emitAs($SHUT).emitAs($_DONE).setValue(0%).emitAs($light);
+  catchEvent($init).emitAs($SHUT);
   // Homing
   catchEvent($clean).emitAs($PROC).emitAs($_DONE).emitAs($_HEAT).emitAs($_SHUT);
   catchEvent($calib).emitAs($PROC).emitAs($_DONE).emitAs($_HEAT).emitAs($_SHUT);
