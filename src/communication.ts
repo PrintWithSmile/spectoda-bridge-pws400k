@@ -6,7 +6,7 @@ import { logging } from "./lib/spectoda-js/logging";
 import fs from "fs";
 import { hexStringToArray, hexStringToUint8Array, sleep } from "./lib/spectoda-js/functions";
 
-const spectoda = new Spectoda("nodeserial", true);
+const spectoda = new Spectoda("dummy", true);
 
 spectoda.setDebugLevel(3);
 
