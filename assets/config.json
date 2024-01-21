@@ -1,8 +1,11 @@
 {
     "spectoda": {
+        "debug": {
+            "level": 3
+        },
         "network": {
-            "signature": "00000000000000000000000000000000",
-            "key": "00000000000000000000000000000000"
+            "signature": "068af36c7d6654732d82bad5e76f5bb0",
+            "key": "4f9a0fe0a1ae8bf64816309ef141c3c6"
         },
         "connect": {
             "connector": "nodeserial",
@@ -16,8 +19,12 @@
                 "path": "tngl.txt"
             },
             "fw": {
-                "path": "PWS_0.10.0_20231202.enc"
+                "path": "PWS_0.10.1_20240121.enc",
+                "force": false
             }
+        },
+        "remoteControl": {
+            "enable": true
         }
     }
 }
