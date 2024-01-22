@@ -4,34 +4,9 @@ const { exec } = require('child_process'); // Add this line at the beginning of 
 import { Spectoda } from "./lib/spectoda-js/Spectoda";
 import { logging } from "./lib/spectoda-js/logging";
 import fs from "fs";
-import { hexStringToArray, hexStringToUint8Array, sleep } from "./lib/spectoda-js/functions";
+import { hexStringToArray, sleep } from "./lib/spectoda-js/functions";
 
 const spectoda = new Spectoda("dummy", true);
-
-spectoda.setDebugLevel(3);
-
-// spectoda.assignOwnerSignature("a06cd5c4d5741b61fee69422f2590926");
-// spectoda.assignOwnerKey("bfd39c89ccc2869f240508e9a0609420");
-
-// spectoda.assignConnector("dummy");
-// if (typeof window !== "undefined") {
-//   spectoda.assignOwnerSignature(localStorage.getItem("ownerSignature") || "a06cd5c4d5741b61fee69422f2590926");
-//   spectoda.assignOwnerKey(localStorage.getItem("ownerKey") || "bfd39c89ccc2869f240508e9a0609420");
-
-//   // @ts-ignore
-//   window.spectoda = spectoda;
-//   process.env.NODE_ENV === "development" && setLoggingLevel(4);
-
-//   const url = new URL(location.href);
-//   const params = new URLSearchParams(url.search);
-
-//   if (params.get("demo")) {
-//     setTimeout(() => {
-//       spectoda.assignConnector("dummy");
-//     }, 300);
-//   }
-// }
-
 // @ts-ignore
 globalThis.spectoda = spectoda;
 
