@@ -5,7 +5,7 @@
   "main": "src/main.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsx  .",
+    "start": "./pws-init-script.sh",
     "debug": "tsx --inspect-brk  .",
     "start:old": "ts-node --transpile-only . ",
     "dummy": "DEBUG=* DUMMY=1 tsx .",
