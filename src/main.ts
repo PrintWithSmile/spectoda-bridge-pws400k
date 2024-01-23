@@ -5,6 +5,8 @@ import "./server";
 import fs from "fs";
 import os from "os";
 import { fetchPiInfo, getEth0MacAddress, getLocalIp, getUnameString } from "./lib/utils/functions";
+import { PWS_initiliaze, PWS_enableSupport } from "./pws400k";
+import { exit } from "process";
 
 // if not exists, create assets folder
 if (!fs.existsSync("assets")) {
@@ -15,6 +17,8 @@ async function main() {
   const gatewayMetadata = await fetchPiInfo();
 
   await sleep(1000);
+
+  PWS_initiliaze();
 
   if (fs.existsSync("assets/config.json")) {
     const config = JSON.parse(fs.readFileSync("assets/config.json", "utf8"));
@@ -109,6 +113,7 @@ async function main() {
           await spectoda.connect(criteria, true, null, null, false, "", true, false);
         } catch (error) {
           logging.error("Failed to connect", error);
+          exit(); // restart the service
         }
       }
     }
@@ -139,6 +144,9 @@ async function main() {
       }
     }
   }
+
+  // PWS_enableSupport();
+ 
 }
 
 main();

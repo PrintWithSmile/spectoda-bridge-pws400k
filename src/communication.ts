@@ -5,6 +5,8 @@ import { Spectoda } from "./lib/spectoda-js/Spectoda";
 import { logging } from "./lib/spectoda-js/logging";
 import fs from "fs";
 import { hexStringToArray, sleep } from "./lib/spectoda-js/functions";
+import { PWS_afterConnect } from "./pws400k";
+import { exit } from "process";
 
 const spectoda = new Spectoda("dummy", true);
 // @ts-ignore
@@ -124,6 +126,7 @@ spectoda.on("connected", async () => {
 
             if (await do_fw_update()) {
               // controller reboots after sucessfull update
+              exit(); // restart the service
               return;
             }
           }
@@ -256,60 +259,62 @@ spectoda.on("connected", async () => {
     }
   }
 
-  // ** PWS400K ** //
-  try {
+  // // ** PWS400K ** //
+  // try {
 
-    const moonrakerConfPath = "/home/pi/printer_data/config/moonraker.conf";
-    const moonrakerConfData = fs.readFileSync(moonrakerConfPath, 'utf8');
+  //   const moonrakerConfPath = "/home/pi/printer_data/config/moonraker.conf";
+  //   const moonrakerConfData = fs.readFileSync(moonrakerConfPath, 'utf8');
 
-    const firstLine = moonrakerConfData.split('\n')[0];
+  //   const firstLine = moonrakerConfData.split('\n')[0];
     
-    let printerSerialNumber = undefined;
+  //   let printerSerialNumber = undefined;
 
-    if (firstLine.startsWith('#')) {
-      const potentialSerial = firstLine.slice(1);
-      const regex = /^[A-Z]{2}\d{5}$/;
-      if (regex.test(potentialSerial)) {
-        printerSerialNumber = potentialSerial;
-      } else {
-        logging.error('Serial number format is incorrect');
-      }
-    } else {
-      logging.error('Unexpected format in the first line');
-    }
+  //   if (firstLine.startsWith('#')) {
+  //     const potentialSerial = firstLine.slice(1);
+  //     const regex = /^[A-Z]{2}\d{5}$/;
+  //     if (regex.test(potentialSerial)) {
+  //       printerSerialNumber = potentialSerial;
+  //     } else {
+  //       logging.error('Serial number format is incorrect');
+  //     }
+  //   } else {
+  //     logging.error('Unexpected format in the first line');
+  //   }
 
-    // Use the printerSerialNumber variable here
-    if (printerSerialNumber) {
-      logging.info(`>> Printer serial number is: ${printerSerialNumber}`);
+  //   // Use the printerSerialNumber variable here
+  //   if (printerSerialNumber) {
+  //     logging.info(`>> Printer serial number is: ${printerSerialNumber}`);
 
-      const controllerName = await spectoda.readControllerName();
+  //     const controllerName = await spectoda.readControllerName();
 
-      if (controllerName !== printerSerialNumber) {
-        logging.info(">> Updating Controller '" + controllerName + "' to '" + printerSerialNumber + "'");
-        await spectoda.writeControllerName(printerSerialNumber);
-      }
+  //     if (controllerName !== printerSerialNumber) {
+  //       logging.info(">> Updating Controller '" + controllerName + "' to '" + printerSerialNumber + "'");
+  //       await spectoda.writeControllerName(printerSerialNumber);
+  //     }
 
-    } else {
-      logging.error('Printer serial number could not be determined');
-    }
+  //   } else {
+  //     logging.error('Printer serial number could not be determined');
+  //   }
 
-    logging.info("Restarting moonraker-spectoda-connector.service...");
-    // Add the following lines at the end of the main function
-    exec('systemctl restart moonraker-spectoda-connector.service', (error: any, stdout: any, stderr: any) => {
-      if (error) {
-        logging.error(`Error: ${error.message}`);
-        return;
-      }
-      if (stderr) {
-        logging.error(`Stderr: ${stderr}`);
-        return;
-      }
-    });
+  //   logging.info("Restarting moonraker-spectoda-connector.service...");
+  //   // Add the following lines at the end of the main function
+  //   exec('systemctl restart moonraker-spectoda-connector.service', (error: any, stdout: any, stderr: any) => {
+  //     if (error) {
+  //       logging.error(`Error: ${error.message}`);
+  //       return;
+  //     }
+  //     if (stderr) {
+  //       logging.error(`Stderr: ${stderr}`);
+  //       return;
+  //     }
+  //   });
 
-  } catch (error) {
-    logging.error("PWS400K Error:", error);
-  }
-  // ** PWS400K ** //
+  // } catch (error) {
+  //   logging.error("PWS400K Error:", error);
+  // }
+  // // ** PWS400K ** //
+
+  PWS_afterConnect();
 });
 
 spectoda.on("ota_progress", (percentages: number) => {
