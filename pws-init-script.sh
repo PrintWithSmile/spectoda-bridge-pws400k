@@ -29,8 +29,8 @@ if ! tsx .; then
         cd $REPO_DIR
     done
 
-    # echo "running npm install..."
-    # npm install
+    echo "running npm install..."
+    npm install
 
     # Try to run tsx again
     tsx .

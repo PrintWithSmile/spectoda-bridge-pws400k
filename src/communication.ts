@@ -126,7 +126,7 @@ spectoda.on("connected", async () => {
 
             if (await do_fw_update()) {
               // controller reboots after sucessfull update
-              exit(); // restart the service
+              exit(1); // restart the service
               return;
             }
           }

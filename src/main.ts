@@ -113,7 +113,7 @@ async function main() {
           await spectoda.connect(criteria, true, null, null, false, "", true, false);
         } catch (error) {
           logging.error("Failed to connect", error);
-          exit(); // restart the service
+          exit(1); // restart the service
         }
       }
     }
