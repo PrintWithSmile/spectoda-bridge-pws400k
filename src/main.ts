@@ -145,7 +145,7 @@ async function main() {
     }
   }
 
-  // PWS_enableSupport();
+  PWS_enableSupport();
  
 }
 
